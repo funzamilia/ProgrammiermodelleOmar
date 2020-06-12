@@ -16,10 +16,10 @@ public class SensorAggregator {
 	private final Stream<String> stream;
 	private final Map<Double, String> cols;
 	private final String head;
-	private final Object[] sa;		//Array gefüllt mit Zeilen des Streams
-	private final long lineCount;	//Sollte genutzt werden, um die rekursion in lineToColumn zu beschränken, jedoch									
-									//gibt es bei über 5000 durchläufen einen Stackoverflow, welchen ich nicht beheben konnte.
-									//deswegen hart gecoded 5000 bei Zeile 44
+	private final Object[] sa;		//Array gefÃ¼llt mit Zeilen des Streams
+	private final long lineCount;	//Sollte genutzt werden, um die rekursion in lineToColumn zu beschrÃ¤nken, jedoch									
+									//gibt es bei Ã¼ber 5000 durchlÃ¤ufen einen Stackoverflow, welchen ich nicht beheben konnte.
+									//deswegen hart gecoded 5000 bei Zeile 46
 	
 	public SensorAggregator() throws IOException {
 		this.cols = new HashMap<Double, String>();
@@ -34,12 +34,12 @@ public class SensorAggregator {
 			return cols;
 		} else {
 			cols.put(Double.parseDouble(sa[index].toString().split(",")[pos]), sa[index].toString().split(",")[0]);
-			return lineToColumn(index - 1, pos); // Die Map befüllen mit Daten und dem gewünschten Wert: Map<wertZuSensorname, datum>
+			return lineToColumn(index - 1, pos); // Die Map befÃ¼llen mit Daten und dem gewÃ¼nschten Wert: Map<wertZuSensorname, datum>
 		}
 	}
 	
 	public int posInSpalte(String name) {
-		return new ArrayList<String>(Arrays.asList(head.split(","))).indexOf("\"" + name + "\""); // Index der Spalte des gewünschten Sensornamen
+		return new ArrayList<String>(Arrays.asList(head.split(","))).indexOf("\"" + name + "\""); // Index der Spalte des gewÃ¼nschten Sensornamen
 	}
 	
 	double getMax(String sensorName, String from, String to) {
@@ -50,7 +50,7 @@ public class SensorAggregator {
 															(Integer.parseInt(entry.getValue().split(" ")[0].split("\\.")[2]) >= Integer.parseInt(from.split(" ")[0].split("\\.")[2])) &&
 															(Integer.parseInt(entry.getValue().split("\\.")[1]) >= Integer.parseInt(from.split("\\.")[1])) &&
 															(Integer.parseInt(entry.getValue().split("\\.")[0]) >= Integer.parseInt(from.split("\\.")[0]))))
-														.max((x, y) -> x.getKey().compareTo(y.getKey())).get().getKey(); //Die Double Werte des gefilterten Streams vergleichen und den max Wert zurückgeben.
+														.max((x, y) -> x.getKey().compareTo(y.getKey())).get().getKey(); //Die Double Werte des gefilterten Streams vergleichen und den max Wert zurÃ¼ckgeben.
 		
 	}
 }
